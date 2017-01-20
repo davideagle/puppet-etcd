@@ -7,7 +7,7 @@ class etcd::params {
   $package_name = 'etcd'
   $manage_package = true
   $manage_service = true
-  notify {"osfamily ${::osfamily}"}
+  notify { "osfamily ${::osfamily}": }
   case $::osfamily {
     'RedHat' : {
       case $::operatingsystemmajrelease {
