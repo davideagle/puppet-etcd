@@ -13,14 +13,19 @@ class etcd::params {
       case $::operatingsystemmajrelease {
         '6'     : { $config_file_path = '/etc/sysconfig/etcd' }
         '7'     : { $config_file_path = '/etc/etcd/etcd.conf' }
-        default : { fail('Unsupported RedHat release.') }
+        default : {  }
       }
     }
     'Debian' : {
       $config_file_path = '/etc/default/etcd.conf'
     }
-    'CoreOS' : {
-      $config_file_path = '/etc/default/etcd.conf'
+    'Linux' : {
+      if 'coreos' in $::operatingsystemrelease {
+        $config_file_path = '/etc/default/etcd.conf'
+      } else {
+        fail('Unsupported Linux release.')
+      }
+
     }
     default  : {
       fail("Unsupported OS. ${::osfamily} ")
