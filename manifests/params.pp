@@ -7,7 +7,7 @@ class etcd::params {
   $package_name = 'etcd'
   $manage_package = true
   $manage_service = true
-
+  notify {"osfamily ${::osfamily}"}
   case $::osfamily {
     'RedHat' : {
       case $::operatingsystemmajrelease {
@@ -17,6 +17,9 @@ class etcd::params {
       }
     }
     'Debian' : {
+      $config_file_path = '/etc/default/etcd.conf'
+    }
+    'CoreOS' : {
       $config_file_path = '/etc/default/etcd.conf'
     }
     default  : {
