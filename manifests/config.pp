@@ -6,10 +6,7 @@ class etcd::config {
     content => template("${module_name}/etc/etcd/etcd.conf.erb"),
   }
 
-  file { '/usr/lib64/systemd/system/etcd2.service':
-    ensure  => 'file',
-    content => template("${module_name}/etc/etcd2.conf.erb"),
-  }
+
 
   if $::etcd::manage_package and $::etcd::journald_forward_enable and ($::operatingsystemmajrelease == '7' or 'coreos' in $::operatingsystemrelease) {
     file { '/etc/systemd/system/etcd.service.d':
@@ -18,6 +15,10 @@ class etcd::config {
       group  => 'root',
       mode   => '0755',
     }
+    file { '/usr/lib64/systemd/system/etcd2.service':
+      ensure  => 'file',
+      content => template("${module_name}/etc/etcd2.conf.erb"),
+    }->
     file { '/etc/systemd/system/etcd.service.d/journald.conf':
       ensure  => file,
       owner   => 'root',

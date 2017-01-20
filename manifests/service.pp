@@ -4,7 +4,7 @@
 #
 class etcd::service {
   if $::etcd::manage_service {
-    service { 'etcd':
+    service { 'etcd2':
       ensure => $::etcd::service_ensure,
       enable => $::etcd::service_enable,
     }
