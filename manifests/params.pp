@@ -7,7 +7,7 @@ class etcd::params {
   $package_name = 'etcd'
   $manage_package = true
   $manage_service = true
-  notify { "osfamily ${::osfamily}": }
+
   case $::osfamily {
     'RedHat' : {
       case $::operatingsystemmajrelease {
@@ -23,7 +23,7 @@ class etcd::params {
       $config_file_path = '/etc/default/etcd.conf'
     }
     default  : {
-      fail('Unsupported OS.')
+      fail("Unsupported OS. ${::osfamily} ")
     }
   }
 
