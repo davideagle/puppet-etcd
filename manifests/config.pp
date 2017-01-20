@@ -6,7 +6,7 @@ class etcd::config {
     content => template("${module_name}/etc/etcd/etcd.conf.erb"),
   }
 
-  if $::etcd::manage_package and $::etcd::journald_forward_enable and $::operatingsystemmajrelease == '7' {
+  if $::etcd::manage_package and $::etcd::journald_forward_enable and ($::operatingsystemmajrelease == '7' or $::osfamily == 'CoreOS') {
     file { '/etc/systemd/system/etcd.service.d':
       ensure => 'directory',
       owner  => 'root',
