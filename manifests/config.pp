@@ -15,7 +15,7 @@ class etcd::config {
       group  => 'root',
       mode   => '0755',
     }
-    file { '/usr/lib64/systemd/system/etcd2.service':
+    file { '/lib/systemd/system/etcd2.service':
       ensure  => 'file',
       content => template("${module_name}/etc/etcd2.conf.erb"),
     }->
