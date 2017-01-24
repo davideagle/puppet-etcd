@@ -5,8 +5,9 @@
 class etcd::service {
   if $::etcd::manage_service {
     service { 'etcd2.service':
-      ensure => $::etcd::service_ensure,
-      enable => $::etcd::service_enable,
+      provider => 'systemd',
+      ensure   => $::etcd::service_ensure,
+      enable   => $::etcd::service_enable,
     }
   }
 }
