@@ -15,9 +15,9 @@ class etcd::config {
       group  => 'root',
       mode   => '0755',
     }
-    file { '/lib/systemd/system/etcd2.service':
+    file { '/etc/systemd/system/etcd2.service':
       ensure  => 'file',
-      content => template("${module_name}/etc/etcd2.conf.erb"),
+      content => template("${module_name}/etc/etcd2.service.erb"),
     }->
     file { '/etc/systemd/system/etcd.service.d/journald.conf':
       ensure  => file,
