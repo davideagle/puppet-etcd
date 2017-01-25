@@ -19,13 +19,8 @@ class etcd::params {
     'Debian' : {
       $config_file_path = '/etc/default/etcd.conf'
     }
-    'Linux' : {
-      if 'coreos' in $::operatingsystemrelease {
-        $config_file_path = '/etc/default/etcd.conf'
-      } else {
-        fail('Unsupported Linux release.')
-      }
-
+    'CoreOS' : {
+      $config_file_path = '/etc/default/etcd.conf'
     }
     default  : {
       fail("Unsupported OS. ${::osfamily} ")
