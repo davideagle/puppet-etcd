@@ -9,7 +9,7 @@ class etcd::config {
   if $::osfamily == 'Debian' {
     file { '/etc/init/etcd.override':
       ensure  => 'file',
-      content => template("${module_name}/etc/etcd/etcd.override.erb"),
+      content => template("${module_name}/etc/etcd.override.erb"),
     }
   }
 
