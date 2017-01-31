@@ -6,7 +6,12 @@ class etcd::config {
     content => template("${module_name}/etc/etcd/etcd.conf.erb"),
   }
 
-
+  if $::osfamily == 'Debian' {
+    file { '/etc/init/etcd.override':
+      ensure  => 'file',
+      content => template("${module_name}/etc/etcd/etcd.override.erb"),
+    }
+  }
 
   if $::etcd::manage_package and $::etcd::journald_forward_enable and ($::operatingsystemmajrelease == '7' or $::osfamily == 'CoreOS') {
     file { '/etc/systemd/system/etcd.service.d':
